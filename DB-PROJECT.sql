@@ -23,15 +23,17 @@ CREATE TABLE Constituencies (
   ConstituencyID INT IDENTITY(1,1) PRIMARY KEY
 );
 
+--CANDIDATES TABLE
 CREATE TABLE Candidates (
   Name VARCHAR(255) NOT NULL,
   PartyAffiliation VARCHAR(255),
   Bio VARCHAR(1000),
-  CandidateID INT PRIMARY KEY,
+  CandidateID INT IDENTITY(1,1) PRIMARY KEY,
   ConstituencyID INT NOT NULL,
   FOREIGN KEY (ConstituencyID) REFERENCES Constituencies(ConstituencyID) ON DELETE CASCADE ON UPDATE CASCADE, 
 );
 
+SET IDENTITY_INSERT Candidates ON;
 
 
 --VOTES TABLE
