@@ -1,7 +1,8 @@
-create database DBProject
+create database DBProjectVOTE
 go
-use DBProject
+use DBProjectVOTE
 go
+
 
 
 --DATABASE SCHEMA CONSISTING 7 TABLES.
@@ -20,7 +21,7 @@ CREATE TABLE Voters (
 --CONSTITUENCIES TABLE
 CREATE TABLE Constituencies (
   ConstituencyName VARCHAR(255),
-  ConstituencyID INT IDENTITY(1,1) PRIMARY KEY,
+  ConstituencyID INT PRIMARY KEY,
 );
 
 
@@ -30,7 +31,7 @@ CREATE TABLE Candidates (
   Name VARCHAR(255),
   PartyAffiliation VARCHAR(255),
   Bio VARCHAR(1000),
-  CandidateID INT IDENTITY(1,1) PRIMARY KEY NOT NULL,
+  CandidateID INT PRIMARY KEY NOT NULL,
   ConstituencyID INT,
   FOREIGN KEY (ConstituencyID) REFERENCES Constituencies(ConstituencyID) ON DELETE CASCADE ON UPDATE CASCADE, 
 );
@@ -39,9 +40,8 @@ SET IDENTITY_INSERT Candidates ON;
 
 
 --VOTES TABLE
-CREATE TABLE Votes (
-  VoteID INT IDENTITY(1,1) PRIMARY KEY,  
-  VoterID INT NOT NULL,
+CREATE TABLE Votes (  
+  VoterID INT  NOT NULL,
   FOREIGN KEY (VoterID) REFERENCES Voters(VoterID) ON DELETE CASCADE ON UPDATE CASCADE, 
   CandidateID INT NOT NULL,
   FOREIGN KEY (CandidateID) REFERENCES Candidates(CandidateID) ON DELETE CASCADE ON UPDATE CASCADE, 
@@ -61,7 +61,7 @@ CREATE TABLE Admin (
 
 --FORM 47 TABLE
 CREATE TABLE Form47 (
-  Form47ID INT IDENTITY(1,1) PRIMARY KEY,
+  Form47ID INT PRIMARY KEY,
   ConstituencyID INT NOT NULL,
   FOREIGN KEY (ConstituencyID) REFERENCES Constituencies(ConstituencyID) ON DELETE CASCADE ON UPDATE CASCADE, 
   ReturningOfficer VARCHAR(255),
@@ -78,6 +78,7 @@ CREATE TABLE Result (
   ConstituencyID INT NOT NULL,
   FOREIGN KEY (ConstituencyID) REFERENCES Constituencies(ConstituencyID), 
 );
+
 
 
 select * from Admin
